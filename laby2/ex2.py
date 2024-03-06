@@ -24,7 +24,6 @@ def rightmost_occurrence(x, A):
     return result
 
 
-
 print('Test rightmost_occurrence()...', end=' ')
 beg = time.time()
 assert rightmost_occurrence(1, [1]) == 0
