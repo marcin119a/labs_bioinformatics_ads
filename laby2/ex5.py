@@ -2,6 +2,9 @@
 Zadanie 5. Podaj algorytm, który dla danego S > 0 sprawdza, czy w liście dodatkich liczb seq istnieje segment (spójny fragment listy) o sumie S. Inaczej, czy istnieja ̨indeksy i i j takie, z ̇e Pjk=i seq[k] = S?
 """
 
+
+
+
 def find_segment_with_sum(S, seq):
     # Obliczenie sum prefiksowych
     prefix_sum = [0]
@@ -26,6 +29,15 @@ def find_segment_with_sum(S, seq):
 
 import time
 
+def find_segment_with_sum(S, seq):
+    n = len(seq)
+    for i in range(n):
+        current_sum = 0
+        for j in range(i, n):
+            current_sum += seq[j]
+            if current_sum == S:
+                return True
+    return False
 
 print('Małe testy...', end=' ')
 beg = time.time()
@@ -52,7 +64,9 @@ for i in range(2, 6):
     # Lista składająca się z samych jedyniek, segment o sumie 'n' na pewno istnieje
     assert find_segment_with_sum(n, [1]*n) == True
     # Lista składająca się z wartości rosnących od 1 do n, segment o sumie 'n' może nie istnieć
-    assert find_segment_with_sum(n, list(range(1, n+1))) == False
+    print(list(range(1, n+1)))
+    print(int((n+1)*n // 2))
+    assert find_segment_with_sum(int((n+1)*n // 2), list(range(1, n+1))) == False
     end = time.time()
     print(f'OK, czas: {end-beg:.3f}s')
     if end-beg > 1:
