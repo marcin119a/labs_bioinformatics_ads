@@ -10,7 +10,7 @@ def rightmost_occurrence(x, A):
     result = None  # Zainicjalizuj wynik jako None, na wypadek gdyby x nie zostało znalezione
 
     while l <= r:
-        mid = l + (r - l) // 2  # Znajdź środkowy indeks
+        mid = l + (r - l + 1) // 2  # Znajdź środkowy indeks
 
         # Sprawdź, czy środkowy element jest równy x
         if A[mid] == x:
