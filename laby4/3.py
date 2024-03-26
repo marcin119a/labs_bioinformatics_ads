@@ -1,10 +1,33 @@
 from typing import List, Optional
 
 
-def subset_sum(arr: List[int], k: int) -> Optional[List[int]]:
-    # Trzecie zadanie z ćwiczeń (treść jest w pliku PDF).
-    # TODO: uzupełnij tę funkcję.
-    return []
+def subset_sum(arr, k):
+    n = len(arr)
+    dp = [[False for j in range(k + 1)] for i in range(n + 1)]
+
+    for i in range(n + 1):
+        dp[i][0] = True
+
+    for i in range(1, n + 1):
+        for j in range(1, k + 1):
+            if j < arr[i - 1]:
+                dp[i][j] = dp[i - 1][j]
+            else:
+                dp[i][j] = dp[i - 1][j] or dp[i - 1][j - arr[i - 1]]
+
+    if not dp[n][k]:
+        return None  # Zwraca None, jeśli nie ma takiego podzbioru
+
+    # Wsteczne śledzenie, aby znaleźć elementy podzbioru
+    subset = []
+    i, j = n, k
+    while j > 0 and i > 0:
+        if dp[i][j] != dp[i - 1][j]:
+            subset.append(arr[i - 1])
+            j -= arr[i - 1]
+        i -= 1
+
+    return subset
 
 
 # Testowanie.

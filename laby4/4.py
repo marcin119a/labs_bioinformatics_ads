@@ -1,10 +1,25 @@
 from typing import List, Tuple
 
+X = 0
+Y = 1
+def maximal_number_of_segments(intervals):
+    # Sortowanie odcinków według ich końców
+    sorted_intervals = sorted(intervals, key=lambda i: i[Y])
 
-def maximal_number_of_segments(segments: List[Tuple[int, int]]) -> int:
-    # Czwarte zadanie z ćwiczeń (treść jest w pliku PDF).
-    # TODO: uzupełnij tę funkcję.
-    return 0
+    # Inicjowanie licznika wybranych odcinków i ostatniego końca
+    count = 0
+    last_end = -1
+
+    # Przechodzenie przez posortowane odcinki
+    for interval in sorted_intervals:
+        # Sprawdzenie, czy odcinek jest rozłączny z poprzednio wybranymi
+        if interval[X] > last_end:
+            # Zwiększenie licznika i aktualizacja ostatniego końca
+            count += 1
+            last_end = interval[Y]
+
+    # Zwracanie maksymalnej liczby rozłącznych odcinków
+    return count
 
 
 # Testowanie.
