@@ -13,10 +13,10 @@ def subset_sum(arr, k):
     for i in range(1, n + 1):
         dp[i][0] = True
         for j in range(1, k + 1):
-            # Jeśli poprzednia suma jest True, obecna również musi być
+            # Jeśli poprzednia suma jest True, obecna również musi być, właczamy element
             if j < arr[i - 1]:
                 dp[i][j] = dp[i - 1][j]
-            else:
+            else: #bez tego elementu 
                 # Sprawdzenie, czy suma jest możliwa z obecnym lub bez niego
                 dp[i][j] = dp[i - 1][j] or dp[i - 1][j - arr[i - 1]]
 
