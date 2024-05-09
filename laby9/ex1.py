@@ -10,7 +10,6 @@ def global_alignment(seq1, seq2, sim):
         dp[i][0] = dp[i - 1][0] - gap_penalty(seq1[i - 1], '-')
     for j in range(1, n + 1):
         dp[0][j] = dp[0][j - 1] - gap_penalty('-', seq2[j - 1])
-
     # Wypełnianie reszty tablicy dynamicznej
     for i in range(1, m + 1):
         for j in range(1, n + 1):
@@ -19,6 +18,8 @@ def global_alignment(seq1, seq2, sim):
                 dp[i - 1][j] - gap_penalty(seq1[i - 1], '-'),  # Luka w pierwszej sekwencji
                 dp[i][j - 1] - gap_penalty('-', seq2[j - 1])  # Luka w drugiej sekwencji
             )
+    print(dp)
+
     # Odtworzenie optymalnego uliniowienia
     alignment_seq1 = ''
     alignment_seq2 = ''

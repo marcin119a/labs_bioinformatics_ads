@@ -22,6 +22,7 @@ arr = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 n = len(arr)
 # Budowanie kopca (od ostatniego węzła, który jest rodzicem, do korzenia)
 for i in range(n // 2 - 1, -1, -1):
+    print(arr)
     heapify(arr, n, i)
 
 print("Stan tablicy po konstrukcji kopca max-heap:", arr)

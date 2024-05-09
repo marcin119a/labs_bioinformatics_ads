@@ -55,8 +55,8 @@ def sim(x, y):
 
 
 # Przykładowe sekwencje DNA
-seq1 = 'GGCA'
-seq2 = 'GTG'
+seq1 = 'TGC'
+seq2 = 'ATG'
 
 # Znalezienie optymalnego uliniowienia lokalnego
 alignment_seq1, alignment_seq2, score = local_alignment(seq1, seq2, sim)
