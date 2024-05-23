@@ -1,6 +1,11 @@
 import heapq
 from typing import List, Tuple
 
+"""
+musimy zastosować priorytetową kolejkę do wyboru wierzchołka o najmniejszym obecnie znanym koszcie. 
+Wersja algorytmu Dijkstry, która działa w czasie O(mlogm), używa stosu binarnego do przechowywania wierzchołków do przetworzenia
+"""
+
 # Przykład korzystania z biblioteki "heapq".
 # Uwaga - nie mamy operacji "Decrease"!
 def heapq_example():
@@ -13,6 +18,7 @@ def heapq_example():
     print(heapq.heappop(heap))  # Wyrzucamy najmniejszy(!) element z kopca - 5.
 
 
+
 def dijkstra(n: int, v: List[List[Tuple[int, int]]]) -> int:
     # Wierzchołki mają numery od 0 do n-1.
     # v[x] - lista par (wierzchołek, długość/waga/koszt krawędzi).
@@ -21,8 +27,30 @@ def dijkstra(n: int, v: List[List[Tuple[int, int]]]) -> int:
 
     # Funkcja powinna zwracać minimalny koszt ścieżki z wierzchołka 0 do wierzchołka n-1.
     # (można założyć, że istnieje przynajmniej jedna taka ścieżka)
-    return 0
 
+    # Priorytetowa kolejka do przechowywania wierzchołków do przetworzenia
+    priority_queue = [(0, 0)]  # (distance, node)
+    # Tablica odległości
+    distances = [float('inf')] * n
+    distances[0] = 0
+    # Zbiór odwiedzonych wierzchołków
+    visited = set()
+
+    while priority_queue:
+        current_distance, current_node = heapq.heappop(priority_queue)
+
+        if current_node in visited:
+            continue
+        visited.add(current_node)
+
+        for neighbor, weight in v[current_node]:
+            distance = current_distance + weight
+
+            if distance < distances[neighbor]:
+                distances[neighbor] = distance
+                heapq.heappush(priority_queue, (distance, neighbor))
+
+    return distances[n-1]
 
 # Testy.
 

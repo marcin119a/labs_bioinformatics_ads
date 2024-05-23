@@ -13,17 +13,42 @@ words_set = set(words)
 
 # Budujemy graf w czasie O(n), gdzie n to liczba słów.
 # (ale to trochę oszustwo; wykonujemy co najmniej n*5*26*5 = 650n operacji)
+
+from collections import defaultdict, deque
 v = defaultdict(list)
 for word in words:
     for i in range(len(word)):
         for letter in letters:
-            similar_word = word[:i] + letter + word[i+1:]
+            similar_word = word[:i] + letter + word[i + 1:]
             if similar_word in words_set and similar_word != word:
                 v[word].append(similar_word)
 
-# Mamy już graf; v['liver'] to lista wszystich poprawnych słów,
-# które różnią się jedną literą od 'liver'.
-# Konkretnie, v['liver'] = ['river', 'lover', 'lived', 'lives']
+
+def bfs_shortest_path(start, goal):
+    queue = deque([(start, [start])])
+    visited = set()
+
+    while queue:
+        current_word, path = queue.popleft()
+
+        if current_word == goal:
+            return path
+
+        visited.add(current_word)
+
+        for neighbor in v[current_word]:
+            if neighbor not in visited:
+                queue.append((neighbor, path + [neighbor]))
+                visited.add(neighbor)
+
+    return None
+path = bfs_shortest_path('river', 'water')
+if path:
+    print("Najkrótsza ścieżka z 'river' do 'water':")
+    for word in path:
+        print(word)
+else:
+    print("Nie znaleziono ścieżki z 'river' do 'water'.")
 
 # TODO: wypisz najkrótszy możliwy ciąg słów zaczynający się od 'river',
 # kończący się na 'water', w którym każde słowo różni się od poprzedniego

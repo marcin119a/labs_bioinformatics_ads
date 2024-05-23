@@ -1,12 +1,22 @@
 from wyklad11 import Graph, GraphNode
 
-def is_connected(graph: Graph) -> bool:
-    # TODO: zaimplementuj tę funkcję. "graph" jest grafem nieskierowanym.
-    # Powinna zwracać True, jeśli podany graf jest spójny, a False w przeciwnym wypadku.
 
-    # graph.nodes['A'] to wierzchołek 'A' (obiekt GraphNode).
-    # Dla obiektu GraphNode x, x.neighbors to lista jego sąsiadów (obiektów GraphNode).
-    return True
+def is_connected(graph: Graph) -> bool:
+    if not graph.nodes:
+        return True
+    start_node = next(iter(graph.nodes.values()))
+    visited = set()
+    queue = [start_node]
+
+    while queue:
+        node = queue.pop(0)
+        if node not in visited:
+            visited.add(node)
+            for neighbor in node.neighbors:
+                if neighbor not in visited:
+                    queue.append(neighbor)
+
+    return len(visited) == len(graph.nodes)
 
 # Testy.
 G1 = Graph(
