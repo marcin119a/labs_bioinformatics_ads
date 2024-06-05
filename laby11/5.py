@@ -50,6 +50,3 @@ if path:
 else:
     print("Nie znaleziono ścieżki z 'river' do 'water'.")
 
-# TODO: wypisz najkrótszy możliwy ciąg słów zaczynający się od 'river',
-# kończący się na 'water', w którym każde słowo różni się od poprzedniego
-# tylko na jednej pozycji.
