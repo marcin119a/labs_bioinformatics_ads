@@ -43,7 +43,6 @@ def PSTable(P):
 
 def KMPMatch(P, T):
    PS = PSTable(P)
-   print(PS)
    q = 0
    for x in T:
       while q>=0:
