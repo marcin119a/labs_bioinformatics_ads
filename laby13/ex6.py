@@ -8,7 +8,7 @@ def regex_search(pattern, text):
 import timeit
 
 pattern = "example"
-text = "this is an example text with example as a word"
+text = "this is an example text with example as a word"*10
 number = 10000  # Ilość powtórzeń
 
 naive_time = timeit.timeit('NaiveMatch(pattern, text)', globals=globals(), number=number)

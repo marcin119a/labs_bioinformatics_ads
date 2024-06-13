@@ -1,40 +1,21 @@
-def KMPMatchAll(P, T):
-    """Znajduje wszystkie wystąpienia wzorca P w tekście T i zwraca listę ich pozycji."""
-    # Funkcja pomocnicza do obliczenia tablicy prefikso-sufiksów
-    def computePSTable(P):
-        m = len(P)
-        PS = [0] * m
-        j = 0
-        for i in range(1, m):
-            while (j > 0 and P[i] != P[j]):
-                j = PS[j - 1]
-            if P[i] == P[j]:
-                j += 1
-                PS[i] = j
-        return PS
+def PSTable(P):
+   PS = [-1]
+   q = -1
+   for x in P:
+      while q >= 0 and P[q]!=x:
+         q = PS[q]
+      q += 1
+      PS.append(q)
+   return PS
 
-    # Obliczenie tablicy prefikso-sufiksów dla wzorca
-    PS = computePSTable(P)
-    n = len(T)
+def KMPMatch(P, T):
+    PS = PSTable(P + "#" + T)
     m = len(P)
-    q = 0  # Długość aktualnie dopasowanego fragmentu wzorca
-    positions = []  # Lista pozycji, na których znajduje się wzorzec
-
-    # Przeszukiwanie tekstu
-    for i in range(n):
-        while (q > 0 and P[q] != T[i]):
-            q = PS[q - 1]
-        if P[q] == T[i]:
-            q += 1
-        if q == m:
-            # Dopasowanie pełne wzorca P do tekstu T na pozycji i-m+1
-            positions.append(i - m + 1)
-            # Przygotowanie do szukania kolejnego wystąpienia
-            q = PS[q - 1]
-
-    return positions
-
-# Przykładowe użycie:
-pattern = "ab"
-text = "abaabab"
-print(KMPMatchAll(pattern, text))
+    results = []
+    for i in range(len(PS)):
+        # Szukamy wystąpienia długości wzorca w tablicy PS, począwszy od indeksu po #,
+        # co odpowiada rozpoczęciu porównań w tekście T.
+        if PS[i] == m:
+            # Dodajemy miejsce wystąpienia wzorca w tekście, biorąc pod uwagę długość wzorca oraz separator.
+            results.append(i - 2 * m)
+    return results
